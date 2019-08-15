@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="common/head"></div>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">关键字搜索</div>
+                <div class="panel-body">
+                    <form id="searchForm" class="form-inline">
+                        <div class="form-group">
+                            <label>学号</label>
+                            <input type="text" class="form-control" name="searchName">
+                        </div>
+                        <div class="form-group">
+                            <label>姓名</label>
+                            <input type="text" class="form-control" name="searchEmail">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="search()">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                        <button type="reset" class="btn btn-default">
+                            <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                        </button>
+                        <div class="form-group">
+                            <label>年级</label>
+                            <input type="text" class="form-control" name="searchEmail">
+                        </div>
+                        <div class="form-group">
+                            <label>班级</label>
+                            <input type="text" class="form-control" name="searchAddress">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="search()">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                        <button type="reset" class="btn btn-default">
+                            <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div id="toolbar" class="btn-group">
+                <button type="button" class="btn btn-sm btn-info" onclick="add()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新 增
+                </button>
+                <button type="button" class="btn btn-sm btn-danger" onclick="dels()">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 批量删除
+                </button>
+                <button type="button" class="btn btn-sm btn-primary" onclick="window.location.href='/'">
+                    <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> 刷新数据
+                </button>
+            </div>
+            <table id="userTable"></table>
+        </div>
+    </div>
+</div>
+
+<!-- 引入jquery bootstrap等 -->
+<div th:replace="common/js"></div>
+
+</body>
+</html>
