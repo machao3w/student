@@ -12,4 +12,6 @@ public interface StudentService {
     ResponseResult selectByPrimaryKey(String number);
 
     List<Student> selectAll();
+
+    String selectByPage(Integer offset, Integer limit);
 }
