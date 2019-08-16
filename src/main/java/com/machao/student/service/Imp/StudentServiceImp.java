@@ -1,11 +1,14 @@
 package com.machao.student.service.Imp;
 
+import com.alibaba.fastjson.JSON;
 import com.machao.student.dao.StudentMapper;
+import com.machao.student.dto.BootstrapTableDto;
 import com.machao.student.dto.ResponseResult;
 import com.machao.student.entity.Student;
 import com.machao.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -25,12 +28,14 @@ public class StudentServiceImp implements StudentService {
     }
 
     @Override
-    public List<Student> selectAll() {
-        return studentMapper.selectAll();
-    }
-
-    @Override
-    public String selectByPage(Integer offset, Integer limit) {
-        return null;
+    public String listAll(Integer offset, Integer limit,String number,String name,Integer grade, Integer classes) {
+        if(!StringUtils.isEmpty(number)||!StringUtils.isEmpty(name)||!StringUtils.isEmpty(grade)||!StringUtils.isEmpty(classes)){
+            offset = 0;
+            limit = 10;
+        }
+        List<Student> rows = studentMapper.selectByPage(offset,limit,number,name,grade,classes);
+        Integer total = studentMapper.selectCount(null);
+        BootstrapTableDto bootstrapTableDto = new BootstrapTableDto(total, rows);
+        return JSON.toJSONString(bootstrapTableDto);
     }
 }

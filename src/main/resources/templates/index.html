@@ -11,25 +11,19 @@
                     <form id="searchForm" class="form-inline">
                         <div class="form-group">
                             <label>学号</label>
-                            <input type="text" class="form-control" name="searchName">
+                            <input type="text" class="form-control" name="searchNumber">
                         </div>
                         <div class="form-group">
                             <label>姓名</label>
-                            <input type="text" class="form-control" name="searchEmail">
+                            <input type="text" class="form-control" name="searchName">
                         </div>
-                        <button type="button" class="btn btn-primary" onclick="search()">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </button>
-                        <button type="reset" class="btn btn-default">
-                            <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                        </button>
                         <div class="form-group">
                             <label>年级</label>
-                            <input type="text" class="form-control" name="searchEmail">
+                            <input type="text" class="form-control" name="searchGrade">
                         </div>
                         <div class="form-group">
                             <label>班级</label>
-                            <input type="text" class="form-control" name="searchAddress">
+                            <input type="text" class="form-control" name="searchClasses">
                         </div>
                         <button type="button" class="btn btn-primary" onclick="search()">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -40,22 +34,11 @@
                     </form>
                 </div>
             </div>
-            <div id="toolbar" class="btn-group">
-                <button type="button" class="btn btn-sm btn-info" onclick="add()">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新 增
-                </button>
-                <button type="button" class="btn btn-sm btn-danger" onclick="dels()">
-                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 批量删除
-                </button>
-                <button type="button" class="btn btn-sm btn-primary" onclick="window.location.href='/'">
-                    <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> 刷新数据
-                </button>
-            </div>
             <table id="StudentTable"></table>
         </div>
     </div>
 </div>
-
+<table id="StudentTable"></table>
 <!-- 引入jquery bootstrap等 -->
 <div th:replace="common/js"></div>
 
@@ -78,7 +61,7 @@
                 pagination: true,                   //是否显示分页（*）
                 sortable: false,                     //是否启用排序
                 sortOrder: "asc",                   //排序方式
-                queryParams: oTableInit.queryParams,//传递参数（*）
+                //queryParams: oTableInit.queryParams,//传递参数（*）
                 sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
                 pageNumber: 1,                       //初始化加载第一页，默认第一页
                 pageSize: 10,                       //每页的记录行数（*）
@@ -100,10 +83,21 @@
                    return{
                        limit:params.limit,
                        offset:params.offset,
+                       number: $("input[name='searchNumber']").val(),
+                       name:$("input[name='searchName']").val(),
+                       classes:$("input[name='searchClasses']").val(),
+                       grade:$("input[name='searchGrade']").val()
                    }
                 },
 
-                column: [
+                responseHandler: function(data){
+                    return {
+                        "total" : data.total,
+                        "rows" :data.data
+                    };
+                },
+
+                columns: [
                     {
                         field: 'number',
                         title: '学号',
@@ -129,6 +123,18 @@
             });
         };
         return oTableInit;
+
+
+    
+    }
+
+    function search() {
+        var searchNumber = $("input[name='searchNumber']").val();
+        var searchName = $("input[name='searchName']").val();
+        var searchGrade = $("input[name='searchGrade']").val();
+        var searchClasses = $("input[name='searchClasses']").val();
+        $("#StudentTable").bootstrapTable("refresh", {silent: true});
+
     }
 
 

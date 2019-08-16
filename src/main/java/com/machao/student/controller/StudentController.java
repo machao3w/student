@@ -4,12 +4,9 @@ import com.machao.student.dto.ResponseResult;
 import com.machao.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/student")
 public class StudentController {
 
@@ -18,9 +15,13 @@ public class StudentController {
 
     @GetMapping("/studentList")
     public String listAll(@RequestParam(value = "offset", defaultValue = "0") Integer offset,
-                          @RequestParam(value = "limit", defaultValue = "10") Integer limit){
+                          @RequestParam(value = "limit", defaultValue = "10") Integer limit,
+                          @RequestParam(value = "number", required = false) String number,
+                          @RequestParam(value = "name", required = false) String name,
+                          @RequestParam(value = "grade", required = false) Integer grade,
+                          @RequestParam(value = "classes", required = false) Integer classes){
 
-        return studentService.selectByPage(offset,limit);
+        return studentService.listAll(offset,limit,number,name,grade,classes);
     }
 
     @GetMapping("/studentList/{number}")

@@ -11,7 +11,5 @@ public interface StudentService {
 
     ResponseResult selectByPrimaryKey(String number);
 
-    List<Student> selectAll();
-
-    String selectByPage(Integer offset, Integer limit);
+    String listAll(Integer offset, Integer limit, String number, String name, Integer grade, Integer classes);
 }
