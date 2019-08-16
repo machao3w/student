@@ -11,7 +11,11 @@ spring:
     encoding: UTF-8
     servlet:
       content-type: text/html
+
+
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-  
+logging:
+  level:
+    com.machao.student.mapper: debug
