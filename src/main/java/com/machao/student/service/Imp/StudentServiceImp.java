@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,13 +30,27 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public String listAll(Integer offset, Integer limit,String number,String name,Integer grade, Integer classes) {
+        /**
         if(!StringUtils.isEmpty(number)||!StringUtils.isEmpty(name)||!StringUtils.isEmpty(grade)||!StringUtils.isEmpty(classes)){
             offset = 0;
             limit = 10;
         }
-        List<Student> rows = studentMapper.selectByPage(offset,limit,number,name,grade,classes);
-        Integer total = studentMapper.selectCount(null);
-        BootstrapTableDto bootstrapTableDto = new BootstrapTableDto(total, rows);
+        **/
+        List<Student> rows;
+        if(name.getBytes().length != name.length()){
+             rows = studentMapper.selectByPage(number,name,grade,classes);
+        }else {
+             rows = studentMapper.selectByPageContainEnglish(number,name,grade,classes);
+        }
+        List<Student> rows_new;
+        if(offset + 10 < rows.size()){
+            rows_new = rows.subList(offset,offset+10);
+        }else {
+            rows_new = rows.subList(offset,rows.size());
+        }
+        Integer total = rows.size();
+        // Integer total = studentMapper.selectCount(null);
+        BootstrapTableDto bootstrapTableDto = new BootstrapTableDto(total, rows_new);
         return JSON.toJSONString(bootstrapTableDto);
     }
 }

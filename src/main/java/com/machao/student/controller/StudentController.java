@@ -4,6 +4,7 @@ import com.machao.student.dto.ResponseResult;
 import com.machao.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,4 +29,6 @@ public class StudentController {
     public ResponseResult selectByPrimaryKey(@PathVariable("number") String number){
         return studentService.selectByPrimaryKey(number);
     }
+
+
 }
