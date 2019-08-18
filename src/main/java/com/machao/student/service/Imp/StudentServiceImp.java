@@ -6,6 +6,7 @@ import com.machao.student.dto.BootstrapTableDto;
 import com.machao.student.dto.ResponseResult;
 import com.machao.student.entity.Student;
 import com.machao.student.service.StudentService;
+import com.machao.student.utils.MyStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -25,11 +26,11 @@ public class StudentServiceImp implements StudentService {
         if(student == null){
             return new ResponseResult(0,"数据为空");
         }
-        return new ResponseResult(1,"查询成功", student);
+        return new ResponseResult(1,"查询成功",student);
     }
 
     @Override
-    public String listAll(Integer offset, Integer limit,String number,String name,Integer grade, Integer classes) {
+    public String listAll(Integer offset, Integer limit,String number,String name,Integer grade, Integer classes, String projects) {
         /**
         if(!StringUtils.isEmpty(number)||!StringUtils.isEmpty(name)||!StringUtils.isEmpty(grade)||!StringUtils.isEmpty(classes)){
             offset = 0;
@@ -40,7 +41,7 @@ public class StudentServiceImp implements StudentService {
         if(name.getBytes().length != name.length()){
              rows = studentMapper.selectByPage(number,name,grade,classes);
         }else {
-             rows = studentMapper.selectByPageContainEnglish(number,name,grade,classes);
+             rows = studentMapper.selectByPageContainEnglish(number, MyStringUtils.StringAddPercent(name),grade,classes);
         }
         List<Student> rows_new;
         if(offset + 10 < rows.size()){

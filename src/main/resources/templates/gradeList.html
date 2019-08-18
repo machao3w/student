@@ -30,28 +30,6 @@
                                     <label>班级</label>
                                     <input type="text" class="form-control" name="searchClasses">
                                 </div>
-                                <div class="form-group">
-                                    <select class="form-control selectpicker" multiple id="projectSelect">
-                                            <option value="chinese_mid">期中语文</option>
-                                            <option value="math_mid">期中数学</option>
-                                            <option value="english_mid">期中英语</option>
-                                            <option value="physic_mid">期中物理</option>
-                                            <option value="chemistry_mid">期中化学</option>
-                                            <option value="geography_mid">期中地理</option>
-                                            <option value="politics_mid">期中政治</option>
-                                            <option value="history_mid">期中历史</option>
-                                            <option value="biography_mid">期中生物</option>
-                                            <option value="chinese_final">期末语文</option>
-                                            <option value="math_final">期末数学</option>
-                                            <option value="english_final">期末英语</option>
-                                            <option value="4">期末物理</option>
-                                            <option value="5">期末化学</option>
-                                            <option value="6">期末地理</option>
-                                            <option value="7">期末政治</option>
-                                            <option value="8">期末历史</option>
-                                            <option value="9">期末生物</option>
-                                    </select>
-                                </div>
                                 <button type="button" class="btn btn-primary" onclick="search()">
                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                 </button>
@@ -80,43 +58,6 @@
     var TableInit = function () {
         var oTableInit = new Object();
         oTableInit.Init = function () {
-            var basecolumn = [
-                {
-                    field: 'number',
-                    title: '学号',
-                    align: 'center'
-                },
-                {
-                    field: 'name',
-                    title: '姓名',
-                },
-                {
-                    field: 'sex',
-                    title: '性别',
-                },
-                {
-                    field: 'grade',
-                    title: '年级',
-                },
-                {
-                    field: 'classes',
-                    title: '班级',
-                }
-            ];
-            var projectArray = $('#projectSelect').selectpicker('val').split(",");
-            if(!projectArray){
-                for(var i = 0; i<projectArray.length;i++){
-                    var property = projectArray[i];
-                    basecolumn.push({
-                        "field":property,
-                        "title":property
-                    });
-                }
-            }
-
-
-            //var columns_new = basecolumn.concat(columnsArray);
-
             $('#StudentTable').bootstrapTable({
                 url: '/student/studentList',         //请求后台的URL（*）
                 method: 'get',                      //请求方式（*）
@@ -151,8 +92,7 @@
                         number: $("input[name='searchNumber']").val(),
                         name: $("input[name='searchName']").val(),
                         classes: $("input[name='searchClasses']").val(),
-                        grade: $("input[name='searchGrade']").val(),
-                        projects: $('#projectSelect').selectpicker('val')
+                        grade: $("input[name='searchGrade']").val()
                     }
                 },
 
@@ -163,8 +103,29 @@
                     };
                 },
 
-
-                columns: columns_new,
+                columns: [
+                    {
+                        field: 'number',
+                        title: '学号',
+                        align: 'center'
+                    },
+                    {
+                        field: 'name',
+                        title: '姓名',
+                    },
+                    {
+                        field: 'sex',
+                        title: '性别',
+                    },
+                    {
+                        field: 'grade',
+                        title: '年级',
+                    },
+                    {
+                        field: 'classes',
+                        title: '班级',
+                    },
+                ],
             });
         };
         return oTableInit;
@@ -177,8 +138,6 @@
         var searchName = $("input[name='searchName']").val();
         var searchGrade = $("input[name='searchGrade']").val();
         var searchClasses = $("input[name='searchClasses']").val();
-        var searchProject = $('#projectSelect').selectpicker('val');
-        alert(searchProject);
         $("#StudentTable").bootstrapTable('destroy');
         var oTable = new TableInit();
         oTable.Init();

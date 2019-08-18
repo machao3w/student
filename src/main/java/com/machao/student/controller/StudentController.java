@@ -20,9 +20,10 @@ public class StudentController {
                           @RequestParam(value = "number", required = false) String number,
                           @RequestParam(value = "name", required = false) String name,
                           @RequestParam(value = "grade", required = false) Integer grade,
-                          @RequestParam(value = "classes", required = false) Integer classes){
+                          @RequestParam(value = "classes", required = false) Integer classes,
+                          @RequestParam(value="projects",required = false) String projects){
 
-        return studentService.listAll(offset,limit,number,name,grade,classes);
+        return studentService.listAll(offset,limit,number,name,grade,classes,projects);
     }
 
     @GetMapping("/studentList/{number}")

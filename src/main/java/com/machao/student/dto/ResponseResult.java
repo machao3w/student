@@ -16,4 +16,5 @@ public class ResponseResult {
         this.code = code;
         this.message = message;
     }
+
 }
