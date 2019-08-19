@@ -16,6 +16,8 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+  mapper-locations: "classpath:mapper/*.xml"
+
 logging:
   level:
     com.machao.student.mapper: debug

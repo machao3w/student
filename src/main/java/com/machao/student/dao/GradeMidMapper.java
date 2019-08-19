@@ -20,4 +20,6 @@ public interface GradeMidMapper extends MyMapper<GradeMid> {
      * @mbggenerated Thu Aug 15 14:48:54 CST 2019
      */
     List<GradeMid> selectAll();
+
+
 }

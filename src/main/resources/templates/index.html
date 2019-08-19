@@ -103,7 +103,9 @@
                     title: '班级',
                 }
             ];
-            var projectArray = $('#projectSelect').selectpicker('val').split(",");
+
+            var project = $('#projectSelect').selectpicker('val').toString();
+            var projectArray = project.split(",");
             if(!projectArray){
                 for(var i = 0; i<projectArray.length;i++){
                     var property = projectArray[i];
@@ -152,7 +154,7 @@
                         name: $("input[name='searchName']").val(),
                         classes: $("input[name='searchClasses']").val(),
                         grade: $("input[name='searchGrade']").val(),
-                        projects: $('#projectSelect').selectpicker('val')
+                        projects: $('#projectSelect').selectpicker('val').toString()
                     }
                 },
 
@@ -164,7 +166,7 @@
                 },
 
 
-                columns: columns_new,
+                columns: basecolumn,
             });
         };
         return oTableInit;
