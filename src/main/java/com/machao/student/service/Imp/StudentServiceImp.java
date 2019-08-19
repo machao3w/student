@@ -13,6 +13,7 @@ import com.machao.student.utils.MyStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
 
@@ -46,27 +47,26 @@ public class StudentServiceImp implements StudentService {
         }
         **/
         List<Student> rows;
-        if(name.getBytes().length != name.length()){
-             rows = studentMapper.selectByPage(number,name,grade,classes);
-        }else {
-             rows = studentMapper.selectByPageContainEnglish(number, MyStringUtils.StringAddPercent(name),grade,classes);
-        }
         List<Student> rows_new;
         if(!StringUtils.isEmpty(projects)) {
-            List<String> projectList = Arrays.asList(projects.split(","));
-            List<String> projectList_new = new ArrayList<>();
-            for (String str : projectList) {
-                if (str.split("_")[1] == "mid") {
-                    projectList_new.add("grade_mid." + str.split("_")[0].toString());
-                } else if (str.split("_")[1] == "final") {
-                    //projectList_new.put("final", str.split("_")[0]);
-                }
+            String temp = MyStringUtils.StringToDBColumn(projects);
+            if(StringUtils.isEmpty(name)||name.getBytes().length != name.length()){
+                rows = studentMapper.selectByPage01(number,name,grade,classes,temp);
+                List<Student> temp01 = studentMapper.selectByTest("20181011462");
+                System.out.println(temp01);
+            }else {
+                rows = studentMapper.selectByPage01ContainEnglish(number, MyStringUtils.StringAddPercent(name),grade,classes,temp);
+            }
+
+        } else {
+
+            if (StringUtils.isEmpty(name) || name.getBytes().length != name.length()) {
+                rows = studentMapper.selectByPage(number, name, grade, classes);
+            } else {
+                rows = studentMapper.selectByPageContainEnglish(number, MyStringUtils.StringAddPercent(name), grade, classes);
             }
         }
-//        List<GradeMid> gradeMids = new ArrayList<>();
-//        for(Student student:rows){
-//            gradeMids.add(gradeMidMapper.selectByPrimaryKey(student.getNumber()));
-//        }
+
         if(offset + 10 < rows.size()){
             rows_new = rows.subList(offset,offset+10);
         }else {
@@ -77,4 +77,13 @@ public class StudentServiceImp implements StudentService {
         BootstrapTableDto bootstrapTableDto = new BootstrapTableDto(total, rows_new);
         return JSON.toJSONString(bootstrapTableDto);
     }
+
+//    public String listAll01(Integer offset, Integer limit,String number,String name,Integer grade, Integer classes, String projects){
+//        Example example = new Example(Student.class);
+//        Example.Criteria criteria = example.createCriteria();
+//        criteria.andEqualTo("number",number);
+//        criteria.andLike("name_english",name);
+//        criteria.
+//        return null;
+//    }
 }

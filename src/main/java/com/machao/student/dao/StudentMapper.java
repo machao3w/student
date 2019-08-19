@@ -2,10 +2,7 @@ package com.machao.student.dao;
 
 import com.machao.student.baseMapper.MyMapper;
 import com.machao.student.entity.Student;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -62,6 +59,9 @@ public interface StudentMapper extends MyMapper<Student> {
     List<Student> selectByPageContainEnglish( String number, String name, Integer grade, Integer classes);
 
 
-    List<Student> selectByPage01( String number, String name, Integer grade, Integer classes, String projects );
+    List<Student> selectByPage01(@Param("number")String number, @Param("name")String name, @Param("grade")Integer grade, @Param("classes")Integer classes, @Param("projects")String projects );
 
+    List<Student> selectByPage01ContainEnglish( String number, String name, Integer grade, Integer classes, String projects);
+
+    List<Student> selectByTest(String number);
 }

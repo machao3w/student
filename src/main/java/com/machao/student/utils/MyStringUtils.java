@@ -23,4 +23,17 @@ public class MyStringUtils {
         return null;
     }
 
+    public static String StringToDBColumn(String args){
+        String[] a = args.split(",");
+        List<String> list = new ArrayList<>();
+        for(String temp : a){
+            if (temp.split("_")[1].equals("mid")){
+                list.add("gm." + temp.split("_")[0]);
+            } else if(temp.split("_")[1].equals("final")){
+                list.add("gf." + temp.split("_")[0]);
+            }
+        }
+        return String.join(",",list);
+    }
+
 }

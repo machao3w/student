@@ -44,12 +44,12 @@
                                             <option value="chinese_final">期末语文</option>
                                             <option value="math_final">期末数学</option>
                                             <option value="english_final">期末英语</option>
-                                            <option value="4">期末物理</option>
-                                            <option value="5">期末化学</option>
-                                            <option value="6">期末地理</option>
-                                            <option value="7">期末政治</option>
-                                            <option value="8">期末历史</option>
-                                            <option value="9">期末生物</option>
+                                            <option value="physic_final">期末物理</option>
+                                            <option value="chemistry_final">期末化学</option>
+                                            <option value="geography_final">期末地理</option>
+                                            <option value="politics_final">期末政治</option>
+                                            <option value="history_final">期末历史</option>
+                                            <option value="biography_final">期末生物</option>
                                     </select>
                                 </div>
                                 <button type="button" class="btn btn-primary" onclick="search()">
@@ -73,8 +73,10 @@
 <script>
 
     $(function () {
+        alert("11");
         var oTable = new TableInit();
         oTable.Init();
+
     });
 
     var TableInit = function () {
@@ -83,7 +85,7 @@
             var basecolumn = [
                 {
                     field: 'number',
-                    title: '学号',
+                    title: '123',
                     align: 'center'
                 },
                 {
@@ -105,8 +107,8 @@
             ];
 
             var project = $('#projectSelect').selectpicker('val').toString();
-            var projectArray = project.split(",");
-            if(!projectArray){
+            if(project){
+                var projectArray = project.split(",");
                 for(var i = 0; i<projectArray.length;i++){
                     var property = projectArray[i];
                     basecolumn.push({
@@ -115,7 +117,6 @@
                     });
                 }
             }
-
 
             //var columns_new = basecolumn.concat(columnsArray);
 
@@ -159,6 +160,9 @@
                 },
 
                 responseHandler: function (data) {
+                    for(var i = 0; i<projectArray.length;i++){
+
+                    }
                     return {
                         "total": data.total,
                         "rows": data.data

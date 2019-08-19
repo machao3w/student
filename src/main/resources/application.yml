@@ -11,13 +11,15 @@ spring:
     encoding: UTF-8
     servlet:
       content-type: text/html
-
+  jpa:
+    show-sql: true
 
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-  mapper-locations: "classpath:mapper/*.xml"
+  type-aliases-package: com.machao.student.entity
+  mapper-locations: classpath:mapper/*.xml
 
 logging:
   level:
-    com.machao.student.mapper: debug
+    com.machao.student.dao: debug
