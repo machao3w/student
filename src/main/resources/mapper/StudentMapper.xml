@@ -27,8 +27,8 @@
       <association property="gradeMid" javaType="com.machao.student.entity.GradeMid">
         <result column="number_m" property="numberM" jdbcType="VARCHAR" />
         <result column="chinese" property="chinese" jdbcType="VARCHAR" />
-        <result column="math" property="math" jdbcType="VARCHAR" />
-        <result column="english" property="english" jdbcType="VARCHAR" />
+        <result column="math_mid" property="mathMid" jdbcType="VARCHAR" />
+        <result column="english_mid" property="englishMid" jdbcType="VARCHAR" />
         <result column="physics" property="physics" jdbcType="VARCHAR" />
         <result column="chemistry" property="chemistry" jdbcType="VARCHAR" />
         <result column="geography" property="geography" jdbcType="VARCHAR" />

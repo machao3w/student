@@ -57,7 +57,6 @@ public class StudentServiceImp implements StudentService {
             }else {
                 rows = studentMapper.selectByPage01ContainEnglish(number, MyStringUtils.StringAddPercent(name),grade,classes,temp);
             }
-
         } else {
 
             if (StringUtils.isEmpty(name) || name.getBytes().length != name.length()) {

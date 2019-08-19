@@ -32,13 +32,13 @@
                                 </div>
                                 <div class="form-group">
                                     <select class="form-control selectpicker" multiple id="projectSelect">
-                                            <option value="chinese_mid">期中语文</option>
-                                            <option value="math_mid">期中数学</option>
-                                            <option value="english_mid">期中英语</option>
-                                            <option value="physic_mid">期中物理</option>
-                                            <option value="chemistry_mid">期中化学</option>
-                                            <option value="geography_mid">期中地理</option>
-                                            <option value="politics_mid">期中政治</option>
+                                            <option value="chineseMid">期中语文</option>
+                                            <option value="mathMid">期中数学</option>
+                                            <option value="englishMid">期中英语</option>
+                                            <option value="physicMid">期中物理</option>
+                                            <option value="chemistryMid">期中化学</option>
+                                            <option value="geographyMid">期中地理</option>
+                                            <option value="politicsMid">期中政治</option>
                                             <option value="history_mid">期中历史</option>
                                             <option value="biography_mid">期中生物</option>
                                             <option value="chinese_final">期末语文</option>
@@ -109,7 +109,7 @@
             var project = $('#projectSelect').selectpicker('val').toString();
             if(project){
                 var projectArray = project.split(",");
-                for(var i = 0; i<projectArray.length;i++){
+                for(var i = 0; i<projectArray.length; i++){
                     var property = projectArray[i];
                     basecolumn.push({
                         "field":property,
@@ -118,7 +118,6 @@
                 }
             }
 
-            //var columns_new = basecolumn.concat(columnsArray);
 
             $('#StudentTable').bootstrapTable({
                 url: '/student/studentList',         //请求后台的URL（*）
@@ -160,16 +159,37 @@
                 },
 
                 responseHandler: function (data) {
-                    for(var i = 0; i<projectArray.length;i++){
-
-                    }
+                    if(data.data[0]["gradeMid"]){
+                        for(var i = 0; i < data.data.length; i++){
+                            var gradeMid = data.data[i]["gradeMid"];
+                            for(var key in gradeMid){
+                                var k = key;
+                                var value = gradeMid[key];
+                                data.data[i][k]=value;
+                            }
+                        }
+                    };
+                    if(data.data[0]["gradeFinal"]){
+                        for(var i = 0; i < data.data.length; i++){
+                            var gradeFinal = data.data[i]["gradeFinal"];
+                            for(var key in gradeFinal){
+                                var k = key;
+                                var value = gradeFinal[key];
+                                data.data[i][k]=value;
+                            }
+                        }
+                    };
+                    for(var i = 0; i<data.data.length; i++){
+                        delete data.data[i]["gradeMid"];
+                        delete data.data[i]["gradeFinal"];
+                    };
+                    console.log(data);
                     return {
                         "total": data.total,
                         "rows": data.data
+
                     };
                 },
-
-
                 columns: basecolumn,
             });
         };
