@@ -34,16 +34,6 @@ public interface StudentMapper extends MyMapper<Student> {
      */
     List<Student> selectAll();
 
-    List<Student> selectByName(String name);
-
-    //List<Student> select()
-
-    List<Student> selectByClasses(Integer Classes);
-
-    List<Student> selectByGrade(Integer Grade);
-
-    List<Student> selectByGradeAndClasses(Map<String,Integer> keys);
-
     @Select(MYSELECTSQL)
     @Results(id="studentMap", value = {
             @Result(column = "number", property = "number", id = true ),
@@ -58,10 +48,9 @@ public interface StudentMapper extends MyMapper<Student> {
     @ResultMap("studentMap")
     List<Student> selectByPageContainEnglish( String number, String name, Integer grade, Integer classes);
 
-
     List<Student> selectByPage01(@Param("number")String number, @Param("name")String name, @Param("grade")Integer grade, @Param("classes")Integer classes, @Param("projects")String projects );
 
     List<Student> selectByPage01ContainEnglish( String number, String name, Integer grade, Integer classes, String projects);
 
-    List<Student> selectByTest(String number);
+    List<Student> selectAllAndGrade(Integer grade, Integer classes);
 }

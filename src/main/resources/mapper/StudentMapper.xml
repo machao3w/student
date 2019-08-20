@@ -26,17 +26,30 @@
     <result column="classes" property="classes" jdbcType="INTEGER" />
       <association property="gradeMid" javaType="com.machao.student.entity.GradeMid">
         <result column="number_m" property="numberM" jdbcType="VARCHAR" />
-        <result column="chinese" property="chinese" jdbcType="VARCHAR" />
+        <result column="chinese_mid" property="chineseMid" jdbcType="VARCHAR" />
         <result column="math_mid" property="mathMid" jdbcType="VARCHAR" />
         <result column="english_mid" property="englishMid" jdbcType="VARCHAR" />
-        <result column="physics" property="physics" jdbcType="VARCHAR" />
-        <result column="chemistry" property="chemistry" jdbcType="VARCHAR" />
-        <result column="geography" property="geography" jdbcType="VARCHAR" />
-        <result column="politics" property="politics" jdbcType="VARCHAR" />
-        <result column="history" property="history" jdbcType="VARCHAR" />
-        <result column="biography" property="biography" jdbcType="VARCHAR" />
+        <result column="physics_mid" property="physicsMid" jdbcType="VARCHAR" />
+        <result column="chemistry_mid" property="chemistryMid" jdbcType="VARCHAR" />
+        <result column="geography_mid" property="geographyMid" jdbcType="VARCHAR" />
+        <result column="politics_mid" property="politicsMid" jdbcType="VARCHAR" />
+        <result column="history_mid" property="historyMid" jdbcType="VARCHAR" />
+        <result column="biography_mid" property="biographyMid" jdbcType="VARCHAR" />
+      </association>
+      <association property="gradeFinal" javaType="com.machao.student.entity.GradeFinal">
+        <result column="number_f" property="numberF" jdbcType="VARCHAR" />
+        <result column="chinese_final" property="chineseFinal" jdbcType="VARCHAR" />
+        <result column="math_final" property="mathFinal" jdbcType="VARCHAR" />
+        <result column="english_final" property="englishFinal" jdbcType="VARCHAR" />
+        <result column="physics_final" property="physicsFinal" jdbcType="VARCHAR" />
+        <result column="chemistry_final" property="chemistryFinal" jdbcType="VARCHAR" />
+        <result column="geography_final" property="geographyFinal" jdbcType="VARCHAR" />
+        <result column="politics_final" property="politicsFinal" jdbcType="VARCHAR" />
+        <result column="history_final" property="historyFinal" jdbcType="VARCHAR" />
+        <result column="biography_final" property="biographyFinal" jdbcType="VARCHAR" />
       </association>
   </resultMap>
+
   <insert id="insert" parameterType="com.machao.student.entity.Student" >
     <!--
       WARNING - @mbggenerated
@@ -63,26 +76,36 @@
             inner join grade_mid gm on number = gm.number_m
             inner join grade_final gf on number = gf.number_f
     <where>
-      <if test="number != null"  > and number like '%${classes}%' </if>
-      <if test="name != null"  > and name like '%${classes}%' </if>
-      <if test="grade != null"  > and grade like '%${classes}%' </if>
-      <if test="classes != null"  > and classes like '%${classes}%' </if>
+      <if test="number != null"  > and number like '%${number}%' </if>
+      <if test="name != null"  > and name like '%${name}%' </if>
+      <if test="grade != null"  > and grade like '%${grade}%' </if>
+      <if test="classes != null"  > and classes = ${classes} </if>
     </where>
 
   </select>
 
   <select id="selectByPage01ContainEnglish"  resultMap="StudentAndGradeMap">
-    select student_info.number, student_info.name, student_info.sex, student_info.grade, student_info.classes, #{projects} from student_info
-            inner join grade_mid gm on stu.number = gm.number
-            inner join grade_final gf on stu.number = gf.number
+    select number, name, sex, grade, classes, ${projects} from student_info
+            inner join grade_mid gm on number = gm.number_m
+            inner join grade_final gf on number = gf.number_f
   <where>
-    <if test="student_info.number!= null"  > and stu.number like "%"#{number}"%" </if>
-    <if test="student_info.name!= null"  > and stu.name like "%"#{name}"%"</if>
-    <if test="student_info.grade!= null"  > and stu.grade like "%"#{grade}"%"</if>
-    <if test="student_info.classes!= null"  > and stu.classess like "%"#{classes}"%"</if>
+    <if test="number != null"  > and number like '%${number}%' </if>
+    <if test="name != null"  > and name_english like '%${name}%' </if>
+    <if test="grade != null"  > and grade like '%${grade}%' </if>
+    <if test="classes != null"  > and classes = ${classes} </if>
   </where>
 
 
+  </select>
+
+  <select id="selectAllAndGrade" resultMap="StudentAndGradeMap" >
+    select * from student_info
+            inner join grade_mid gm on number = gm.number_m
+            inner join grade_final gf on number = gf.number_f
+    <where>
+      <if test="grade != null"  > and grade like '%${grade}%' </if>
+      <if test="classes != null"  > and classes = ${classes} </if>
+    </where>
   </select>
 
   <select id="selectByTest" parameterType="String" resultMap="BaseResultMap">

@@ -15,12 +15,12 @@
                         <div class="panel-body">
                             <form id="searchForm" class="form-inline">
                                 <div class="form-group">
-                                    <label>学号</label>
-                                    <input type="text" class="form-control" name="searchNumber">
+                                    <label>排名前</label>
+                                    <input type="text" class="form-control" name="searchLimitFront">
                                 </div>
                                 <div class="form-group">
-                                    <label>姓名</label>
-                                    <input type="text" class="form-control" name="searchName">
+                                    <label>排名后</label>
+                                    <input type="text" class="form-control" name="searchLimitBehind">
                                 </div>
                                 <div class="form-group">
                                     <label>年级</label>
@@ -29,6 +29,13 @@
                                 <div class="form-group">
                                     <label>班级</label>
                                     <input type="text" class="form-control" name="searchClasses">
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input id="checktest" type="checkbox" name="searchCheckbox" value="temp"> 显示成绩提高的学生
+                                        </label>
+                                    </div>
                                 </div>
                                 <button type="button" class="btn btn-primary" onclick="search()">
                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -53,13 +60,48 @@
     $(function () {
         var oTable = new TableInit();
         oTable.Init();
+
     });
 
     var TableInit = function () {
         var oTableInit = new Object();
         oTableInit.Init = function () {
+            var basecolumn = [
+                {
+                    field: 'number',
+                    title: '学号',
+                    align: 'center'
+                },
+                {
+                    field: 'name',
+                    title: '姓名',
+                },
+                {
+                    field: 'sex',
+                    title: '性别',
+                },
+                {
+                    field: 'grade',
+                    title: '年级',
+                },
+                {
+                    field: 'classes',
+                    title: '班级',
+                },
+                {
+                    field: 'gradeMid',
+                    title: '期中总分',
+                },
+                {
+                    field: 'gradeFinal',
+                    title: '期末总分',
+                }
+
+            ];
+
+
             $('#StudentTable').bootstrapTable({
-                url: '/student/studentList',         //请求后台的URL（*）
+                url: '/report/reportList01',         //请求后台的URL（*）
                 method: 'get',                      //请求方式（*）
                 toolbar: '#toolbar',                //工具按钮用哪个容器
                 striped: true,                      //是否显示行间隔色
@@ -86,46 +128,37 @@
                 detailView: false,                   //是否显示父子
 
                 queryParams: function (params) {
-                    return {
-                        limit: params.limit,
-                        offset: params.offset,
-                        number: $("input[name='searchNumber']").val(),
-                        name: $("input[name='searchName']").val(),
-                        classes: $("input[name='searchClasses']").val(),
-                        grade: $("input[name='searchGrade']").val()
+                    if($('#checktest').prop('checked')){
+                        return {
+                            limit: params.limit,
+                            offset: params.offset,
+                            classes: $("input[name='searchClasses']").val(),
+                            grade: $("input[name='searchGrade']").val(),
+                            limitFront: $("input[name='searchLimitFront']").val(),
+                            limitBehind: $("input[name='searchLimitBehind']").val(),
+                            improvement: $("input[name='searchCheckbox']").val()
+                        }
+                    }else{
+                        return {
+                            limit: params.limit,
+                            offset: params.offset,
+                            classes: $("input[name='searchClasses']").val(),
+                            grade: $("input[name='searchGrade']").val(),
+                            limitFront: $("input[name='searchLimitFront']").val(),
+                            limitBehind: $("input[name='searchLimitBehind']").val()
+                        }
                     }
+
                 },
 
                 responseHandler: function (data) {
+                    console.log(data);
                     return {
                         "total": data.total,
                         "rows": data.data
                     };
                 },
-
-                columns: [
-                    {
-                        field: 'number',
-                        title: '学号',
-                        align: 'center'
-                    },
-                    {
-                        field: 'name',
-                        title: '姓名',
-                    },
-                    {
-                        field: 'sex',
-                        title: '性别',
-                    },
-                    {
-                        field: 'grade',
-                        title: '年级',
-                    },
-                    {
-                        field: 'classes',
-                        title: '班级',
-                    },
-                ],
+                columns: basecolumn,
             });
         };
         return oTableInit;
@@ -134,13 +167,14 @@
     }
 
     function search() {
-        var searchNumber = $("input[name='searchNumber']").val();
-        var searchName = $("input[name='searchName']").val();
-        var searchGrade = $("input[name='searchGrade']").val();
-        var searchClasses = $("input[name='searchClasses']").val();
-        $("#StudentTable").bootstrapTable('destroy');
-        var oTable = new TableInit();
-        oTable.Init();
+        if($("input[name='searchLimitFront']").val()&&$("input[name='searchLimitBehind']").val()){
+            alert("排名二选一");
+        }else{
+            $("#StudentTable").bootstrapTable('destroy');
+            var oTable = new TableInit();
+            oTable.Init();
+        }
+
 
     }
 

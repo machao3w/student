@@ -35,21 +35,21 @@
                                             <option value="chineseMid">期中语文</option>
                                             <option value="mathMid">期中数学</option>
                                             <option value="englishMid">期中英语</option>
-                                            <option value="physicMid">期中物理</option>
+                                            <option value="physicsMid">期中物理</option>
                                             <option value="chemistryMid">期中化学</option>
                                             <option value="geographyMid">期中地理</option>
                                             <option value="politicsMid">期中政治</option>
-                                            <option value="history_mid">期中历史</option>
-                                            <option value="biography_mid">期中生物</option>
-                                            <option value="chinese_final">期末语文</option>
-                                            <option value="math_final">期末数学</option>
-                                            <option value="english_final">期末英语</option>
-                                            <option value="physic_final">期末物理</option>
-                                            <option value="chemistry_final">期末化学</option>
-                                            <option value="geography_final">期末地理</option>
-                                            <option value="politics_final">期末政治</option>
-                                            <option value="history_final">期末历史</option>
-                                            <option value="biography_final">期末生物</option>
+                                            <option value="historyMid">期中历史</option>
+                                            <option value="biographyMid">期中生物</option>
+                                            <option value="chineseFinal">期末语文</option>
+                                            <option value="mathFinal">期末数学</option>
+                                            <option value="englishFinal">期末英语</option>
+                                            <option value="physicsFinal">期末物理</option>
+                                            <option value="chemistryFinal">期末化学</option>
+                                            <option value="geographyFinal">期末地理</option>
+                                            <option value="politicsF_final">期末政治</option>
+                                            <option value="historyFinal">期末历史</option>
+                                            <option value="biographyFinal">期末生物</option>
                                     </select>
                                 </div>
                                 <button type="button" class="btn btn-primary" onclick="search()">
@@ -73,7 +73,6 @@
 <script>
 
     $(function () {
-        alert("11");
         var oTable = new TableInit();
         oTable.Init();
 
@@ -85,7 +84,7 @@
             var basecolumn = [
                 {
                     field: 'number',
-                    title: '123',
+                    title: '学号',
                     align: 'center'
                 },
                 {
@@ -105,7 +104,26 @@
                     title: '班级',
                 }
             ];
-
+            var colum_choose = {
+                "chineseMid" : "期中语文",
+                "mathMid" : "期中数学",
+                "englishMid" : "期中英语",
+                "physicsMid" : "期中物理",
+                "chemistryMid" : "期中化学",
+                "geographyMid" : "期中地理",
+                "politicsMid" : "期中政治",
+                "historyMid" : "期中历史",
+                "biographyMid" : "期中生物",
+                "chineseFinal" : "期末语文",
+                "mathFinal" : "期末数学",
+                "englishFinal" : "期末英语",
+                "physicsFinal" : "期末物理",
+                "chemistryFinal" : "期末化学",
+                "geographyFinal" : "期末地理",
+                "politicsF_final" : "期末政治",
+                "historyFinal" : "期末历史",
+                "biographyFinal" : "期末生物"
+            };
             var project = $('#projectSelect').selectpicker('val').toString();
             if(project){
                 var projectArray = project.split(",");
@@ -113,7 +131,7 @@
                     var property = projectArray[i];
                     basecolumn.push({
                         "field":property,
-                        "title":property
+                        "title":colum_choose[property]
                     });
                 }
             }
