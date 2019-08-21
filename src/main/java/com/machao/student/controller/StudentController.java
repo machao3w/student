@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class StudentController {
 
     @Autowired
-    StudentService studentService;
+    private StudentService studentService;
 
     @GetMapping("/studentList")
     public String listAll(@RequestParam(value = "offset", defaultValue = "0") Integer offset,
@@ -21,9 +21,11 @@ public class StudentController {
                           @RequestParam(value = "name", required = false) String name,
                           @RequestParam(value = "grade", required = false) Integer grade,
                           @RequestParam(value = "classes", required = false) Integer classes,
-                          @RequestParam(value="projects",required = false) String projects){
+                          @RequestParam(value="projects",required = false) String projects,
+                          @RequestParam(value = "minGrade",required = false) Integer minGrade,
+                          @RequestParam(value = "maxGrade",required = false)Integer maxGrade){
 
-        return studentService.listAll(offset,limit,number,name,grade,classes,projects);
+        return studentService.listAll(offset,limit,number,name,grade,classes,projects,minGrade,maxGrade);
     }
 
     @GetMapping("/studentList/{number}")

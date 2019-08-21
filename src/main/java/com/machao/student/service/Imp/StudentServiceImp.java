@@ -9,6 +9,7 @@ import com.machao.student.dto.ResponseResult;
 import com.machao.student.entity.GradeMid;
 import com.machao.student.entity.Student;
 import com.machao.student.service.StudentService;
+import com.machao.student.utils.GradeBetween;
 import com.machao.student.utils.MyStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class StudentServiceImp implements StudentService {
     }
 
     @Override
-    public String listAll(Integer offset, Integer limit,String number,String name,Integer grade, Integer classes, String projects) {
+    public String listAll(Integer offset, Integer limit,String number,String name,Integer grade, Integer classes, String projects, Integer minGrade, Integer maxGrade) {
         /**
         if(!StringUtils.isEmpty(number)||!StringUtils.isEmpty(name)||!StringUtils.isEmpty(grade)||!StringUtils.isEmpty(classes)){
             offset = 0;
@@ -43,6 +44,7 @@ public class StudentServiceImp implements StudentService {
         **/
         List<Student> studentList;
         List<Student> rows;
+        //判断是否含有科目，名字是否包含中文
         if(!StringUtils.isEmpty(projects)) {
             String temp = MyStringUtils.StringToDBColumn(projects);
             if(StringUtils.isEmpty(name)||name.getBytes().length != name.length()){
@@ -58,7 +60,20 @@ public class StudentServiceImp implements StudentService {
                 studentList = studentMapper.selectByPageContainEnglish(number, MyStringUtils.StringAddPercent(name), grade, classes);
             }
         }
-
+        //判断是否包含区间
+        if(maxGrade!=null || minGrade != null){
+            List<Student> studentList01 =new ArrayList<>();
+            if(minGrade==null){
+                minGrade=0;
+            }
+            for(Student student:studentList){
+                if(GradeBetween.checkBetween(student,projects,minGrade,maxGrade)){
+                    studentList01.add(student);
+                }
+            }
+            studentList = studentList01;
+        }
+        //返回bootst-table所规定的json格式
         if(offset + 10 < studentList.size()){
             rows = studentList.subList(offset,offset+10);
         }else {

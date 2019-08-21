@@ -1,45 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="common/head"></div>
 <body>
-<form id="registerForm">
-    <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+<div id="wrapper" class="toggled">
+    <div th:replace="common/sidebar"></div>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="number_input">学号</label>
+                    <input type="text" class="form-control" id="number_input" name="number">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label for="name_input">姓名</label>
+                    <input type="text" class="form-control" name="name" id="name_input">
+                </div>
+                <div class="form-group">
+                    <label for="event_input">活动</label>
+                    <select class="form-control" name="eventId" id="event_input">
+                        <option value="1">拔河</option>
+                    </select>
+                </div>
+                <button type="button" id="saveButton" class="btn btn-default">报名</button>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
-    </div>
-    <button type="button" id="saveButton"  class="btn btn-default">Submit</button>
-</form>
+</div>
 </body>
+<div th:replace="common/js"></div>
 <script>
 
-    function valid_add_form() {
-        return false;
+     function valid_add_form() {
+        var number = $("#number_input").val();
+        var re = /\d{10}$/;
+        if(!re.test(number)){
+            $("#number_input").parent().removeClass("has-success has-error");
+            $("#number_input").next("span").text("");
+            $("#number_input").parent().addClass("has-error");
+            $("#number_input").next("span").text("学号格式不对");
+            return false;
+        }else {
+            $("#number_input").parent().removeClass("has-success has-error");
+            $("#number_input").next("span").text("");
+            $("#number_input").parent().addClass("has-success");
+            $("#number_input").next("span").text("");
+        }
+        return true;
     }
 
-    $("#saveButton").click(function () {
-        if(!valid_add_form()){
-            return false;
-        }
-
+     $("#number_input").change(function () {
+        var number = this.value;
         $.ajax({
-            url:"${APP_PATH}/emp",
+            url:"/event/checknumber",
             type:"POST",
-            data:$("registerForm").serialize(),
+            data:"number="+number,
             success:function (result) {
-                
+                if(result.code==100){
+                    $("#saveButton").attr("ajax-va","success");
+                }else{
+                    alert("不可重复报名或者不是本校生")
+                    $("#number_input").val("");
+                    $("#saveButton").attr("ajax-va","error");
+                }
             }
         })
     })
+
+     $("#saveButton").click(function () {
+        if(!valid_add_form()){
+            return false;
+        }
+        $.ajax({
+            url:"/event/enterform01",
+            type:"POST",
+            data:$("#registerForm").serialize(),
+            success:function (result) {
+                if(result.code == 100){
+                    alert("报名成功")
+                }else {
+                    alert("报名失败")
+                    console.log(result);
+                }
+            }
+        })
+    })
+
 </script>
 </html>

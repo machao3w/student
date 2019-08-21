@@ -17,4 +17,14 @@ public class ResponseResult {
         this.message = message;
     }
 
+    public static ResponseResult success(){
+        ResponseResult result = new ResponseResult(100,"成功");
+        return result;
+    }
+
+    public static ResponseResult fail(){
+        ResponseResult result = new ResponseResult(200,"失败");
+        return result;
+    }
+
 }

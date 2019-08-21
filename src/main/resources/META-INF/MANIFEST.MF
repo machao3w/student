@@ -1,0 +1,37 @@
+Manifest-Version: 1.0
+Main-Class: com.machao.student.StudentApplication
+Class-Path: spring-boot-2.1.7.RELEASE.jar pagehelper-5.0.0.jar tomcat-em
+ bed-websocket-9.0.22.jar mapper-spring-boot-autoconfigure-2.1.5.jar spr
+ ing-boot-starter-jdbc-2.1.7.RELEASE.jar log4j-api-2.11.2.jar spring-exp
+ ression-5.1.9.RELEASE.jar lombok-1.18.8.jar jsqlparser-0.9.5.jar jul-to
+ -slf4j-1.7.26.jar netty-codec-4.1.38.Final.jar mapper-spring-boot-start
+ er-2.1.5.jar jboss-logging-3.3.2.Final.jar thymeleaf-spring5-3.0.11.REL
+ EASE.jar javax.annotation-api-1.3.2.jar spring-jdbc-5.1.9.RELEASE.jar c
+ lassmate-1.4.0.jar mapper-base-1.1.5.jar spring-boot-starter-thymeleaf-
+ 2.1.7.RELEASE.jar spring-boot-starter-2.1.7.RELEASE.jar spring-boot-aut
+ oconfigure-2.1.7.RELEASE.jar spring-boot-starter-tomcat-2.1.7.RELEASE.j
+ ar mysql-connector-java-8.0.17.jar jackson-core-2.9.9.jar jackson-annot
+ ations-2.9.0.jar slf4j-api-1.7.26.jar netty-resolver-4.1.38.Final.jar j
+ ackson-module-parameter-names-2.9.9.jar jackson-datatype-jdk8-2.9.9.jar
+  reactor-core-3.2.11.RELEASE.jar lettuce-core-5.1.8.RELEASE.jar HikariC
+ P-3.2.0.jar spring-web-5.1.9.RELEASE.jar spring-data-redis-2.1.10.RELEA
+ SE.jar log4j-to-slf4j-2.11.2.jar fastjson-1.2.51.jar spring-beans-5.1.9
+ .RELEASE.jar spring-boot-starter-data-redis-2.1.7.RELEASE.jar thymeleaf
+ -extras-java8time-3.0.4.RELEASE.jar spring-tx-5.1.9.RELEASE.jar netty-c
+ ommon-4.1.38.Final.jar netty-handler-4.1.38.Final.jar spring-aop-5.1.9.
+ RELEASE.jar spring-boot-starter-logging-2.1.7.RELEASE.jar tomcat-embed-
+ core-9.0.22.jar persistence-api-1.0.jar unbescape-1.1.6.RELEASE.jar jac
+ kson-datatype-jsr310-2.9.9.jar reactive-streams-1.0.2.jar jackson-datab
+ ind-2.9.9.jar mapper-spring-1.1.5.jar jpinyin-1.1.8.jar snakeyaml-1.23.
+ jar mybatis-3.4.6.jar spring-context-5.1.9.RELEASE.jar mapper-weekend-1
+ .1.5.jar spring-boot-starter-web-2.1.7.RELEASE.jar validation-api-2.0.1
+ .Final.jar mapper-core-1.1.5.jar netty-transport-4.1.38.Final.jar sprin
+ g-oxm-5.1.9.RELEASE.jar thymeleaf-3.0.11.RELEASE.jar spring-jcl-5.1.9.R
+ ELEASE.jar mybatis-spring-1.3.2.jar spring-data-commons-2.1.10.RELEASE.
+ jar tomcat-embed-el-9.0.22.jar spring-context-support-5.1.9.RELEASE.jar
+  spring-core-5.1.9.RELEASE.jar netty-buffer-4.1.38.Final.jar spring-dat
+ a-keyvalue-2.1.10.RELEASE.jar attoparser-2.0.5.RELEASE.jar hibernate-va
+ lidator-6.0.17.Final.jar spring-boot-starter-json-2.1.7.RELEASE.jar log
+ back-core-1.2.3.jar mapper-extra-1.1.5.jar spring-webmvc-5.1.9.RELEASE.
+ jar logback-classic-1.2.3.jar
+

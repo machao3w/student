@@ -25,8 +25,10 @@ public class GradeServiceImp implements GradeService {
 
     @Override
     public String listAllAndSort(Integer offset, Integer limit, Integer limitFront, Integer limitBehind, String improvement, Integer grade, Integer classes) {
+
         List<Student> studentList = studentMapper.selectAllAndGrade(grade,classes);
         List<StudentReportVO> studentReportVOList = new ArrayList<>();
+        //计算总价，util中的GradeSum
         for(Student student : studentList){
             StudentReportVO studentReportVO = new StudentReportVO();
             BeanUtils.copyProperties(student, studentReportVO);
@@ -36,6 +38,7 @@ public class GradeServiceImp implements GradeService {
             studentReportVO.setGradeFinal(gradeFinal);
             studentReportVOList.add(studentReportVO);
         }
+        //排序，由期末成绩的总分由高到低
         Collections.sort(studentReportVOList, (o1, o2) -> {
             if(o1.getGradeFinal()==null){
                 return 1;
@@ -45,16 +48,18 @@ public class GradeServiceImp implements GradeService {
             }
             return o2.getGradeFinal().compareTo(o1.getGradeFinal());
         });
-
+        //取前多少名
         if(!StringUtils.isEmpty(limitFront)){
             studentReportVOList = studentReportVOList.subList(0,limitFront);
         }
+        //取后多少名
         if(!StringUtils.isEmpty(limitBehind)){
             Collections.reverse(studentReportVOList);
             studentReportVOList = studentReportVOList.subList(0,limitBehind);
         }
         List<StudentReportVO> rows;
         Integer total;
+        //删选期末成绩比期中成绩高的学生
         if(!StringUtils.isEmpty(improvement)){
             List<StudentReportVO> studentReportVOList_new = new ArrayList<>();
             for (StudentReportVO studentReportVO : studentReportVOList){
@@ -62,20 +67,15 @@ public class GradeServiceImp implements GradeService {
                     studentReportVOList_new.add(studentReportVO);
                 }
             }
-            if(offset + 10 < studentReportVOList_new.size()){
-                rows = studentReportVOList_new.subList(offset,offset+10);
-            }else {
-                rows = studentReportVOList_new.subList(offset, studentReportVOList_new.size());
-            }
-            total = studentReportVOList_new.size();
-        }else {
-            if(offset + 10 < studentReportVOList.size()){
-                rows = studentReportVOList.subList(offset,offset+10);
-            }else {
-                rows = studentReportVOList.subList(offset, studentReportVOList.size());
-            }
-            total = studentReportVOList.size();
+            studentReportVOList = studentReportVOList_new;
         }
+        //返回bootst-table所规定的json格式
+        if(offset + 10 < studentReportVOList.size()){
+            rows = studentReportVOList.subList(offset,offset+10);
+        }else {
+            rows = studentReportVOList.subList(offset, studentReportVOList.size());
+        }
+        total = studentReportVOList.size();
         BootstrapTableDto bootstrapTableDto = new BootstrapTableDto(total, rows);
         return JSON.toJSONString(bootstrapTableDto);
     }

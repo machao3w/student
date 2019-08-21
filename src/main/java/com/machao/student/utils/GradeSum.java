@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GradeSum {
+
+    /**
+     * 计算学生的期中成绩
+     * @param student
+     * @return
+     */
     public static Integer SumMid(Student student) {
         GradeMid gradeMid = student.getGradeMid();
         List<Integer> list = new ArrayList<>();
@@ -48,6 +54,11 @@ public class GradeSum {
         return sum;
     }
 
+    /**
+     * 计算学生的期末成绩
+     * @param student
+     * @return
+     */
     public static Integer SumFinal(Student student) {
         GradeFinal gradeFinal = student.getGradeFinal();
         List<Integer> list = new ArrayList<>();
