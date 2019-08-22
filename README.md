@@ -48,3 +48,9 @@ CREATE TABLE `grade_final` (
   PRIMARY KEY (`number_f`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 ```
+
+# 效果展示
+## 学生信息查询
+![学生信息查询](https://github.com/machao3w/student/blob/master/img/QQ%E6%88%AA%E5%9B%BE20190822135054.png)
+## 学生成绩查询
+![学生成绩查询](https://github.com/machao3w/student/blob/master/img/QQ%E6%88%AA%E5%9B%BE20190822135141.png)
