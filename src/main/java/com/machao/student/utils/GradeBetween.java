@@ -18,6 +18,7 @@ public class GradeBetween {
         if (gradeFinal==null){
             return checkBetweenUnit(gradeMid,project,min,max);
         }
+
         if(gradeMid!=null&&gradeFinal!=null){
             return checkBetweenUnit(gradeMid,project,min,max)&&checkBetweenUnit(gradeFinal,project,min,max);
         }
@@ -60,6 +61,8 @@ public class GradeBetween {
                                 //list.add(student);
                                 return false;
                             }
+                        }else {
+                            return false;
                         }
 
                     }

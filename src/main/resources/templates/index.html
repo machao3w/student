@@ -48,7 +48,7 @@
                                             <option value="physicsFinal">期末物理</option>
                                             <option value="chemistryFinal">期末化学</option>
                                             <option value="geographyFinal">期末地理</option>
-                                            <option value="politicsF_final">期末政治</option>
+                                            <option value="politicsFinal">期末政治</option>
                                             <option value="historyFinal">期末历史</option>
                                             <option value="biographyFinal">期末生物</option>
                                     </select>
@@ -186,31 +186,34 @@
                 },
 
                 responseHandler: function (data) {
-                    if(data.data[0]["gradeMid"]){
-                        for(var i = 0; i < data.data.length; i++){
-                            var gradeMid = data.data[i]["gradeMid"];
-                            for(var key in gradeMid){
-                                var k = key;
-                                var value = gradeMid[key];
-                                data.data[i][k]=value;
+                    if(data.data.length !=0){
+                        if(data.data[0]["gradeMid"]){
+                            for(var i = 0; i < data.data.length; i++){
+                                var gradeMid = data.data[i]["gradeMid"];
+                                for(var key in gradeMid){
+                                    var k = key;
+                                    var value = gradeMid[key];
+                                    data.data[i][k]=value;
+                                }
                             }
-                        }
-                    };
-                    if(data.data[0]["gradeFinal"]){
-                        for(var i = 0; i < data.data.length; i++){
-                            var gradeFinal = data.data[i]["gradeFinal"];
-                            for(var key in gradeFinal){
-                                var k = key;
-                                var value = gradeFinal[key];
-                                data.data[i][k]=value;
+                        };
+                        if(data.data[0]["gradeFinal"]){
+                            for(var i = 0; i < data.data.length; i++){
+                                var gradeFinal = data.data[i]["gradeFinal"];
+                                for(var key in gradeFinal){
+                                    var k = key;
+                                    var value = gradeFinal[key];
+                                    data.data[i][k]=value;
+                                }
                             }
-                        }
-                    };
-                    for(var i = 0; i<data.data.length; i++){
-                        delete data.data[i]["gradeMid"];
-                        delete data.data[i]["gradeFinal"];
-                    };
-                    console.log(data);
+                        };
+                        for(var i = 0; i<data.data.length; i++){
+                            delete data.data[i]["gradeMid"];
+                            delete data.data[i]["gradeFinal"];
+                        };
+                        console.log(data);
+                    }
+
                     return {
                         "total": data.total,
                         "rows": data.data
