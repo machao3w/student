@@ -36,12 +36,6 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public String listAll(Integer offset, Integer limit,String number,String name,Integer grade, Integer classes, String projects, Integer minGrade, Integer maxGrade) {
-        /**
-        if(!StringUtils.isEmpty(number)||!StringUtils.isEmpty(name)||!StringUtils.isEmpty(grade)||!StringUtils.isEmpty(classes)){
-            offset = 0;
-            limit = 10;
-        }
-        **/
         List<Student> studentList;
         List<Student> rows;
         //判断是否含有科目，名字是否包含中文
