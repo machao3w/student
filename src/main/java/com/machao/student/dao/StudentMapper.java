@@ -10,10 +10,10 @@ import java.util.List;
 @Repository
 public interface StudentMapper extends MyMapper<Student> {
 
-    final String MYSELECTSQL = "select number, name, sex, grade, classes from student_info where number like '%${number}%' and name like '%${name}%' " +
+    String MYSELECTSQL = "select number, name, sex, grade, classes from student_info where number like '%${number}%' and name like '%${name}%' " +
             "and grade like '%${grade}%' and classes like '%${classes}%' ";
 
-    final  String MYSELECTSQL01 = "select number, name, sex, grade, classes from student_info where number like '%${number}%' and name_english like '%${name}%' " +
+    String MYSELECTSQL01 = "select number, name, sex, grade, classes from student_info where number like '%${number}%' and name_english like '%${name}%' " +
             "and grade like '%${grade}%' and classes like '%${classes}%' ";
 
     /**

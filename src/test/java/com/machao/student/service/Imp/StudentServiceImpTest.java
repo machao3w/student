@@ -1,5 +1,6 @@
 package com.machao.student.service.Imp;
 
+import com.alibaba.fastjson.JSON;
 import com.machao.student.dto.ResponseResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +20,7 @@ public class StudentServiceImpTest {
     @Test
     public void selectByPrimaryKey() throws Exception{
         ResponseResult result = studentServiceImp.selectByPrimaryKey("20181011033");
+        System.out.println(JSON.toJSONString(result));
 
     }
 }

@@ -72,9 +72,9 @@ public class EventEnterServiceImp implements EventEnterService {
         long time = System.currentTimeMillis()+TIMEOUT;
         Integer id = eventEnter.getEventId();
         //枷锁
-        if(!redisLock.lock(String.valueOf(id),String.valueOf(time))){
-            throw new RegisterException(101,"报名人数过多");
-        }
+//        if(!redisLock.lock(String.valueOf(id),String.valueOf(time))){
+//            throw new RegisterException(101,"报名人数过多");
+//        }
 
         Event event = eventMapper.selectByPrimaryKey(id);
         int limitQuantity = event.getLimitQuantity();
@@ -94,7 +94,7 @@ public class EventEnterServiceImp implements EventEnterService {
         eventEnterMapper.insert(eventEnter);
 
         //解锁
-        redisLock.unlock(String.valueOf(id),String.valueOf(time));
+        //redisLock.unlock(String.valueOf(id),String.valueOf(time));
     }
 
 
