@@ -22,3 +22,5 @@ mybatis:
 logging:
   level:
     com.machao.student.dao: debug
+server:
+  port: 8877

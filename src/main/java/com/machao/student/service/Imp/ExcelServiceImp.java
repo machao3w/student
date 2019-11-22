@@ -116,7 +116,7 @@ public class ExcelServiceImp implements ExcelService {
                 cell = rowData.createCell(col);
                 cell.setCellValue(product.getProductName());
                 cell.setCellStyle(style);
-                sheet.autoSizeColumn(col);
+                //sheet.autoSizeColumn(col);
 
                 //合并单元格
                 sheet.addMergedRegion(new CellRangeAddress(row-1,row+product.getDetails().size()-1-1,col,col));
@@ -133,11 +133,7 @@ public class ExcelServiceImp implements ExcelService {
                         Method m = null;
                         try {
                             m = detail.getClass().getMethod("get" +name);
-                        } catch (NoSuchMethodException e) {
-                            e.printStackTrace();
-                        }
-                        String type = fields[i].getGenericType().toString();
-                        try {
+                            String type = fields[i].getGenericType().toString();
                             if (type.equals("class java.lang.String")){
                                 String value = (String) m.invoke(detail);
                                 cell.setCellValue(value);
@@ -145,7 +141,20 @@ public class ExcelServiceImp implements ExcelService {
                                 Integer value = (Integer) m.invoke(detail);
                                 cell.setCellValue(value);
                             }
-                        }catch (IllegalAccessException e){
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+//                        String type = fields[i].getGenericType().toString();
+//                        try {
+//                            if (type.equals("class java.lang.String")){
+//                                String value = (String) m.invoke(detail);
+//                                cell.setCellValue(value);
+//                            }else if (type.equals("class java.lang.Integer")){
+//                                Integer value = (Integer) m.invoke(detail);
+//                                cell.setCellValue(value);
+//                            }
+//                        }
+                        catch (IllegalAccessException e){
                             e.printStackTrace();
                         }catch (InvocationTargetException e){
                             e.printStackTrace();

@@ -35,6 +35,13 @@ public class StudentController {
         return studentService.selectByPrimaryKey(number);
     }
 
+    @GetMapping("/testTran")
+    public String test(){
+        studentService.testTran();
+        return "test";
+    }
+
+
 
 
 }

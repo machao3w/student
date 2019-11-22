@@ -12,4 +12,6 @@ public interface StudentService {
     ResponseResult selectByPrimaryKey(String number);
 
     String listAll(Integer offset, Integer limit, String number, String name, Integer grade, Integer classes, String projects, Integer minGrade, Integer maxGrade);
+
+    void testTran();
 }
