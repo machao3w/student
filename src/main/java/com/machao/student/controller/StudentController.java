@@ -1,5 +1,6 @@
 package com.machao.student.controller;
 
+import com.machao.student.annotaion.EnableAes;
 import com.machao.student.dto.ResponseResult;
 import com.machao.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/student")
+//@EnableAes
 public class StudentController {
 
     @Autowired
     private StudentService studentService;
 
     @GetMapping("/studentList")
+    @EnableAes
     public String listAll(@RequestParam(value = "offset", defaultValue = "0") Integer offset,
                           @RequestParam(value = "limit", defaultValue = "10") Integer limit,
                           @RequestParam(value = "number", required = false) String number,
@@ -31,11 +34,15 @@ public class StudentController {
     }
 
     @GetMapping("/studentList/{number}")
-    public ResponseResult selectByPrimaryKey(@PathVariable("number") String number){
+   // @EnableAes
+    @ResponseBody
+    public ResponseResult selectByPrimaryKey(@EnableAes @PathVariable("number") String number){
+        //System.out.println("test");
         return studentService.selectByPrimaryKey(number);
     }
 
     @GetMapping("/testTran")
+    @EnableAes
     public String test(){
         studentService.testTran();
         return "test";

@@ -1,6 +1,7 @@
 package com.machao.student.service.Imp;
 
 import com.alibaba.fastjson.JSON;
+import com.machao.student.annotaion.EnableAes;
 import com.machao.student.dao.GradeFinalMapper;
 import com.machao.student.dao.GradeMidMapper;
 import com.machao.student.dao.StudentMapper;
@@ -98,5 +99,19 @@ public class StudentServiceImp implements StudentService {
         studentMapper.insert(student);
         Student student1 = studentMapper.selectByPrimaryKey("20183116906");
         studentMapper.delete(student1);
+    }
+
+    @Override
+    @EnableAes
+    public ResponseResult testList(String number,Student student2) {
+        Student student =  studentMapper.selectByPrimaryKey(number);
+        Student student1 = studentMapper.selectByPrimaryKey(number);
+        List<Student> list = new ArrayList<>();
+        list.add(student);
+        list.add(student1);
+        if(student == null){
+            return new ResponseResult(0,"数据为空");
+        }
+        return new ResponseResult(1,"查询成功",list);
     }
 }

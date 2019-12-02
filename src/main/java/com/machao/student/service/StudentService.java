@@ -14,4 +14,6 @@ public interface StudentService {
     String listAll(Integer offset, Integer limit, String number, String name, Integer grade, Integer classes, String projects, Integer minGrade, Integer maxGrade);
 
     void testTran();
+
+    ResponseResult testList(String number,Student student2);
 }
