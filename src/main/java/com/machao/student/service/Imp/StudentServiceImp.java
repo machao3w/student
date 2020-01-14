@@ -2,12 +2,8 @@ package com.machao.student.service.Imp;
 
 import com.alibaba.fastjson.JSON;
 import com.machao.student.annotaion.EnableAes;
-import com.machao.student.dao.GradeFinalMapper;
-import com.machao.student.dao.GradeMidMapper;
 import com.machao.student.dao.StudentMapper;
 import com.machao.student.dto.BootstrapTableDto;
-import com.machao.student.dto.ResponseResult;
-import com.machao.student.entity.GradeMid;
 import com.machao.student.entity.Student;
 import com.machao.student.service.StudentService;
 import com.machao.student.utils.GradeBetween;
@@ -16,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
 
@@ -28,12 +23,9 @@ public class StudentServiceImp implements StudentService {
 
 
     @Override
-    public ResponseResult selectByPrimaryKey(String number) {
+    public Student selectByPrimaryKey(String number) {
         Student student =  studentMapper.selectByPrimaryKey(number);
-        if(student == null){
-            return new ResponseResult(0,"数据为空");
-        }
-        return new ResponseResult(1,"查询成功",student);
+        return student;
     }
 
     @Override
@@ -103,15 +95,12 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     @EnableAes
-    public ResponseResult testList(String number,Student student2) {
+    public List<Student> testList(String number,Student student2) {
         Student student =  studentMapper.selectByPrimaryKey(number);
         Student student1 = studentMapper.selectByPrimaryKey(number);
         List<Student> list = new ArrayList<>();
         list.add(student);
         list.add(student1);
-        if(student == null){
-            return new ResponseResult(0,"数据为空");
-        }
-        return new ResponseResult(1,"查询成功",list);
+        return list;
     }
 }

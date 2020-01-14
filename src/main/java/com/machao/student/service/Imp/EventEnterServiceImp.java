@@ -1,6 +1,7 @@
 package com.machao.student.service.Imp;
 
 import com.machao.student.Exception.RegisterException;
+import com.machao.student.annotaion.RedisLock;
 import com.machao.student.dao.EventEnterMapper;
 import com.machao.student.dao.EventMapper;
 import com.machao.student.dao.StudentMapper;
@@ -8,21 +9,22 @@ import com.machao.student.entity.Event;
 import com.machao.student.entity.EventEnter;
 import com.machao.student.entity.Student;
 import com.machao.student.service.EventEnterService;
-import com.machao.student.service.RedisLock;
+import com.machao.student.utils.RedisLockUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 
 @Service
+@Slf4j
 public class EventEnterServiceImp implements EventEnterService {
 
     private final static int TIMEOUT = 10*1000;
 
     @Autowired
-    private RedisLock redisLock;
+    private RedisLockUtil redisLockUtil;
 
     @Autowired
     private EventEnterMapper eventEnterMapper;
@@ -66,9 +68,12 @@ public class EventEnterServiceImp implements EventEnterService {
         return count == 0 && student != null;
     }
 
-    @Transactional
+//    @Transactional
+    @Override
+    @RedisLock
     public void register0(EventEnter eventEnter) {
 
+        log.info("进入注册方法");
         long time = System.currentTimeMillis()+TIMEOUT;
         Integer id = eventEnter.getEventId();
         //枷锁
@@ -83,16 +88,9 @@ public class EventEnterServiceImp implements EventEnterService {
         }else{
             eventEnterMapper.insert(eventEnter);
             limitQuantity = limitQuantity -1;
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             event.setLimitQuantity(limitQuantity);
             eventMapper.updateByPrimaryKeySelective(event);
         }
-        eventEnterMapper.insert(eventEnter);
-
         //解锁
         //redisLock.unlock(String.valueOf(id),String.valueOf(time));
     }

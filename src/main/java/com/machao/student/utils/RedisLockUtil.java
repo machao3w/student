@@ -1,4 +1,4 @@
-package com.machao.student.service;
+package com.machao.student.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 
 @Component
 @Slf4j
-public class RedisLock {
+public class RedisLockUtil {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -21,11 +21,15 @@ public class RedisLock {
      */
     public boolean lock(String key, String value){
         if(redisTemplate.opsForValue().setIfAbsent(key,value)){
+            System.out.println(key);
             return true;
         }
         String currentValue = redisTemplate.opsForValue().get(key);
+        log.info("【Redis Service 】 ,key = {}", key);
+        log.info("【Redis Service 】 ,value = {}", value);
+        log.info("【Redis Service 】 ,currentValue = {}", currentValue);
         if(!StringUtils.isEmpty(currentValue)
-                &&System.currentTimeMillis() > Long.parseLong(currentValue)){
+                &&System.currentTimeMillis() < Long.parseLong(currentValue)){
             String oldValue = redisTemplate.opsForValue().getAndSet(key,value);
             if(!StringUtils.isEmpty(currentValue)
                     &&oldValue.equals(currentValue)){

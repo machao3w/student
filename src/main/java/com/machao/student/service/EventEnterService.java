@@ -7,4 +7,6 @@ public interface EventEnterService {
      void register(EventEnter eventEnter);
 
      boolean checkNumer(String number);
+
+     void register0(EventEnter eventEnter);
 }

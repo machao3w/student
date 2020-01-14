@@ -1,11 +1,11 @@
 package com.machao.student.controller;
 
-import com.machao.student.dto.ResponseResult;
+import com.machao.student.VO.ResponseVO;
 import com.machao.student.entity.EventEnter;
 import com.machao.student.service.EventEnterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -22,19 +22,22 @@ public class EventEnterController {
 
     @PostMapping("/enterform01")
     @ResponseBody
-    public ResponseResult enter(EventEnter eventEnter){
+    public ResponseVO enter(EventEnter eventEnter){
         eventEnterService.register(eventEnter);
-        return ResponseResult.success();
+        return ResponseVO.success();
     }
 
     @ResponseBody
-    @PostMapping("/checknumber")
-    public ResponseResult getRecord(@RequestParam("number") String number){
+    @PostMapping(value = {"/checknumber/{number1}","/checknumber"})
+    public ResponseVO getRecord(@PathVariable(value = "number1",required = false) String number1, @RequestParam("number") String number, BindingResult result){
+        if (result.hasErrors()){
+            throw new RuntimeException();
+        }
         boolean checkNumber = eventEnterService.checkNumer(number);
         if(checkNumber){
-            return ResponseResult.success();
+            return ResponseVO.success();
         }else {
-            return ResponseResult.fail();
+            return ResponseVO.fail();
         }
     }
 }

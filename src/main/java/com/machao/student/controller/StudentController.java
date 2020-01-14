@@ -1,14 +1,10 @@
 package com.machao.student.controller;
 
+import com.machao.student.VO.ResponseVO;
 import com.machao.student.annotaion.EnableAes;
-import com.machao.student.dto.ResponseResult;
 import com.machao.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/student")
@@ -36,9 +32,9 @@ public class StudentController {
     @GetMapping("/studentList/{number}")
    // @EnableAes
     @ResponseBody
-    public ResponseResult selectByPrimaryKey(@EnableAes @PathVariable("number") String number){
+    public ResponseVO selectByPrimaryKey(@EnableAes @PathVariable("number") String number){
         //System.out.println("test");
-        return studentService.selectByPrimaryKey(number);
+        return ResponseVO.success(studentService.selectByPrimaryKey(number));
     }
 
     @GetMapping("/testTran")
