@@ -6,9 +6,11 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.concurrent.TimeUnit;
+
 @Component
 @Slf4j
-public class RedisLockUtil {
+public class RedisUtils {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -52,5 +54,22 @@ public class RedisLockUtil {
             log.error("redis解锁错误");
         }
 
+    }
+
+    public String get(String key) {
+        return redisTemplate.opsForValue().get(key);
+    }
+
+
+    public void set(String key, String value) {
+        redisTemplate.opsForValue().set(key, value, Constants.TIMES, TimeUnit.SECONDS);
+    }
+
+    public void set(String key, String value, long expire) {
+        redisTemplate.opsForValue().set(key, value, expire, TimeUnit.SECONDS);
+    }
+
+    public void expire(String key, long expire) {
+        redisTemplate.expire(key, expire, TimeUnit.SECONDS);
     }
 }

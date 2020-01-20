@@ -4,7 +4,7 @@ import com.machao.student.Exception.NormalException;
 import com.machao.student.annotaion.RedisLock;
 import com.machao.student.enums.ErrorCode;
 import com.machao.student.utils.MD5Utils;
-import com.machao.student.utils.RedisLockUtil;
+import com.machao.student.utils.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -27,7 +27,7 @@ import java.lang.reflect.Method;
 public class RedisLockAspect {
 
     @Autowired
-    RedisLockUtil redisLockUtil;
+    RedisUtils redisUtils;
 
     @Pointcut("@annotation(com.machao.student.annotaion.RedisLock)")
     public void lockRedis(){}
@@ -48,14 +48,14 @@ public class RedisLockAspect {
 
         long value = System.currentTimeMillis() + annotation.value();
 
-        if (!redisLockUtil.lock(key,String.valueOf(value))){
+        if (!redisUtils.lock(key,String.valueOf(value))){
             throw NormalException.getInstance(ErrorCode.ACCESS_LIMIT);
         }
         log.info("枷锁");
 
         Object response = joinPoint.proceed(args);
 
-        redisLockUtil.unlock(key,String.valueOf(value));
+        redisUtils.unlock(key,String.valueOf(value));
         log.info("解锁");
         return response;
     }

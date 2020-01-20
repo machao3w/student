@@ -15,7 +15,7 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping("/studentList")
-    @EnableAes
+    //@EnableAes
     public String listAll(@RequestParam(value = "offset", defaultValue = "0") Integer offset,
                           @RequestParam(value = "limit", defaultValue = "10") Integer limit,
                           @RequestParam(value = "number", required = false) String number,

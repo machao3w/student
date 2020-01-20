@@ -9,7 +9,7 @@ import com.machao.student.entity.Event;
 import com.machao.student.entity.EventEnter;
 import com.machao.student.entity.Student;
 import com.machao.student.service.EventEnterService;
-import com.machao.student.utils.RedisLockUtil;
+import com.machao.student.utils.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class EventEnterServiceImp implements EventEnterService {
     private final static int TIMEOUT = 10*1000;
 
     @Autowired
-    private RedisLockUtil redisLockUtil;
+    private RedisUtils redisUtils;
 
     @Autowired
     private EventEnterMapper eventEnterMapper;
