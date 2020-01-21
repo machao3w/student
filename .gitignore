@@ -29,3 +29,8 @@ build/
 
 ### VS Code ###
 .vscode/
+/out/
+/out/
+/out/artifacts/
+/out/artifacts/student_jar/
+/out/
