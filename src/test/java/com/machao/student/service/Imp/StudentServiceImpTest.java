@@ -3,16 +3,21 @@ package com.machao.student.service.Imp;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.machao.student.entity.Student;
+import com.machao.student.utils.MyStringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 @SpringBootTest
@@ -52,9 +57,24 @@ public class StudentServiceImpTest {
         System.out.println(test);
     }
 
-    public void testBoolean(){
-        Boolean b = null;
-        Integer i = b !=null && b ? 1 : 0;
-        System.out.println(b);
+    @Test
+    public void testBoolean() throws IOException {
+//        Boolean b = null;
+//        Integer i = b !=null && b ? 1 : 0;
+//        System.out.println(b);
+
+        String url = "/test/test123";
+        String new_url = url.substring(0,url.indexOf("/",url.indexOf("/")+1));
+        System.out.println(new_url);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String localDateTime = LocalDateTime.now().format(formatter);
+        System.out.printf(localDateTime);
+        Integer a = Integer.MAX_VALUE + 10;
+        System.out.println(a);
+        System.out.println(Integer.MAX_VALUE + 1);
+        InputStream in = MyStringUtils.class.getClassLoader().getResourceAsStream("application.yml");
+        Properties properties = new Properties();
+        properties.load(in);
+        String result = properties.getProperty("student");
     }
 }

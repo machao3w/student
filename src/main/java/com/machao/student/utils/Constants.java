@@ -13,9 +13,9 @@ public class Constants {
 
     public static final long CODE_EXPIRE = 60;
 
-    public static final String APP_ID = "wxd99431bbff8305a0";
+    public static final String APP_ID = "1110232542";
 
-    public static final String APP_SECRET = "60f78681d063590a469f1b297feff3c4";
+    public static final String APP_SECRET = "xQR10cgIJD4ZVsnI";
 
     public static final String QQ_PROVIDER_ID = "qq";
 }

@@ -7,5 +7,5 @@ import org.springframework.social.config.annotation.SocialConfigurerAdapter;
  * date: 2020/1/19 17:32
  */
 
-public class SocialConfig extends SocialConfigurerAdapter {
-}
+//public class SocialConfig extends SocialConfigurerAdapter {
+//}
