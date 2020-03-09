@@ -2,9 +2,13 @@ package com.machao.student.controller;
 
 import com.machao.student.VO.ResponseVO;
 import com.machao.student.annotaion.EnableAes;
+import com.machao.student.entity.Doctor;
+import com.machao.student.param.TestParam;
 import com.machao.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -37,11 +41,15 @@ public class StudentController {
         return ResponseVO.success(studentService.selectByPrimaryKey(number));
     }
 
-    @GetMapping("/testTran")
+    @PostMapping("/testTran")
     @EnableAes
-    public String test(){
-        studentService.testTran();
-        return "test";
+    public Doctor test(@RequestParam("doctorId") String doctorid, @RequestBody List<String> doctorIds){
+        System.out.println("test");
+//        studentService.testTran();
+        Doctor doctor = new Doctor();
+        doctor.setDoctorId("123");
+        doctor.setDoctorName("machao");
+        return doctor;
     }
 
 

@@ -3,6 +3,7 @@ package com.machao.student.service.Imp;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.machao.student.entity.Student;
+import com.machao.student.utils.Hashidse;
 import com.machao.student.utils.MyStringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,12 +13,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @SpringBootTest
@@ -75,6 +74,13 @@ public class StudentServiceImpTest {
         InputStream in = MyStringUtils.class.getClassLoader().getResourceAsStream("application.yml");
         Properties properties = new Properties();
         properties.load(in);
-        String result = properties.getProperty("student");
+        String result = Hashidse.decodeStr(Hashidse.encodeStr("123"));
+        String result1 = Hashidse.decodeStr(Hashidse.encodeInt(123));
+        System.out.println(Hashidse.encodeStr("123"));
+        Calendar c = Calendar.getInstance();
+        String date = (c.get(Calendar.MONTH)+1)+"-"+c.get(Calendar.DATE);
+        System.out.println(date);
+        System.out.println(LocalDate.now().toString());
+
     }
 }

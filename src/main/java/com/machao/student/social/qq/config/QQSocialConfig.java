@@ -13,7 +13,7 @@ import org.springframework.social.connect.ConnectionFactory;
  * author: mc
  * date: 2020/1/20 15:09
  */
-@Configuration
+//@Configuration
 @ConditionalOnProperty(prefix = "student", name = "app-id")
 public class QQSocialConfig extends SocialConfigurerAdapter {
 

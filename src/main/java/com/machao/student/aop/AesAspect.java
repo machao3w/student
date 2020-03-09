@@ -23,8 +23,8 @@ import java.util.Map;
  * data: 2019/11/28 10:37
  */
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class AesAspect {
 
     //@Pointcut("@within(org.springframework.web.bind.annotation.RestController)")

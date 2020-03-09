@@ -78,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login/**","/code/image","/css/**").permitAll()
+                .antMatchers("/login/**","/code/image","/css/**","/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
