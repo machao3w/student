@@ -9,4 +9,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 public interface ExcelService {
 
     HSSFWorkbook excelSample();
+
+    Runnable test();
 }

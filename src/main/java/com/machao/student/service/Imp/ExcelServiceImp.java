@@ -169,4 +169,18 @@ public class ExcelServiceImp implements ExcelService {
         }
         return wb;
     }
+
+
+    @Override
+    public Runnable test() {
+        Mythread mythread = new Mythread();
+        return mythread;
+    }
+
+    class Mythread implements Runnable{
+        @Override
+        public void run() {
+
+        }
+    }
 }

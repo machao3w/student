@@ -3,11 +3,14 @@ package com.machao.student.controller;
 import com.machao.student.VO.ResponseVO;
 import com.machao.student.annotaion.EnableAes;
 import com.machao.student.entity.Doctor;
+import com.machao.student.enums.ParamError;
 import com.machao.student.param.TestParam;
 import com.machao.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -18,7 +21,7 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping("/studentList")
+    @PostMapping("/studentList")
     //@EnableAes
     public String listAll(@RequestParam(value = "offset", defaultValue = "0") Integer offset,
                           @RequestParam(value = "limit", defaultValue = "10") Integer limit,
@@ -42,8 +45,9 @@ public class StudentController {
     }
 
     @PostMapping("/testTran")
-    @EnableAes
-    public Doctor test(@RequestParam("doctorId") String doctorid, @RequestBody List<String> doctorIds){
+    //@EnableAes
+    public Doctor test(ParamError error){
+       // System.out.println(request);
         System.out.println("test");
 //        studentService.testTran();
         Doctor doctor = new Doctor();

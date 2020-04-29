@@ -3,6 +3,7 @@ package com.machao.student.handler;
 import com.machao.student.Exception.NormalException;
 import com.machao.student.VO.ResponseVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,4 +23,5 @@ public class GlobalExceptionHandler {
         log.info("【报错信息】：" + e.getMessage());
         return ResponseVO.error(e.getCode());
     }
+
 }

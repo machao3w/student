@@ -15,5 +15,5 @@ public class TestParam {
 
     private String expertId;
 
-    private List<String> doctorIds;
+    //private List<String> doctorIds;
 }

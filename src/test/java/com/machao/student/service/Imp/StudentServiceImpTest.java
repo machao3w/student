@@ -2,7 +2,10 @@ package com.machao.student.service.Imp;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.machao.student.entity.Student;
+import com.machao.student.param.TestParam;
 import com.machao.student.utils.Hashidse;
 import com.machao.student.utils.MyStringUtils;
 import org.junit.Test;
@@ -13,6 +16,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.net.URLDecoder;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -74,6 +80,7 @@ public class StudentServiceImpTest {
         InputStream in = MyStringUtils.class.getClassLoader().getResourceAsStream("application.yml");
         Properties properties = new Properties();
         properties.load(in);
+        String result22 = Hashidse.encodeStr("123aa");
         String result = Hashidse.decodeStr(Hashidse.encodeStr("123"));
         String result1 = Hashidse.decodeStr(Hashidse.encodeInt(123));
         System.out.println(Hashidse.encodeStr("123"));
@@ -82,5 +89,31 @@ public class StudentServiceImpTest {
         System.out.println(date);
         System.out.println(LocalDate.now().toString());
 
+    }
+
+    @Test
+    public void test(){
+        TestParam param = new TestParam();
+        param.setDoctorId("1");
+        //param.setExpertId("2");
+        Map<Integer,TestParam> map = new HashMap<>();
+        map.put(1,param);
+        String result = JSON.toJSONString(map,SerializerFeature.WriteMapNullValue);
+        System.out.println(result);
+        Type type = new TypeReference<Map<Integer,TestParam>>(){}.getType();
+        Map<Integer,TestParam> res = JSON.parseObject(result,type);
+        System.out.println(res);
+        String test = "1ab";
+        LinkedList linkedList = new LinkedList();
+//        JSON.toJavaObject()
+//        linkedList.
+//        List<String> testlist = new ArrayList<>(Collections.singletonList(test));
+//        System.out.println(testlist);
+    }
+
+    @Test
+    public void test1() throws UnsupportedEncodingException {
+        String res = URLDecoder.decode("%E5%8C%BB%E9%99%A2%E5%88%97%E8%A1%A8-2020-03-24+165553.csv","UTF-8");
+        System.out.println(res);
     }
 }
