@@ -16,7 +16,7 @@ spring:
       content-type: text/html
   redis:
     database: 0
-    host: 192.168.111.129
+    host: localhost
     port: 6379
 #    password: 123456
     lettuce:
@@ -28,10 +28,10 @@ spring:
     timeout: 30000  #连接超时时间(毫秒)
   cache:
     type: redis
-#  security:
-#    user:
-#      name: user
-#      password: user
+  security:
+    user:
+      name: user
+      password: user
 
 
 

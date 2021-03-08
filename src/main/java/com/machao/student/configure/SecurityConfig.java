@@ -51,13 +51,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 //    }
 
-    @Bean
-    public PersistentTokenRepository persistentTokenRepository(){
-        JdbcTokenRepositoryImpl  tokenRepository = new JdbcTokenRepositoryImpl();
-        tokenRepository.setDataSource(dataSource);
-
-        return tokenRepository;
-    }
+//    @Bean
+//    public PersistentTokenRepository persistentTokenRepository(){
+//        JdbcTokenRepositoryImpl  tokenRepository = new JdbcTokenRepositoryImpl();
+//        tokenRepository.setDataSource(dataSource);
+//
+//        return tokenRepository;
+//    }
 
 
     @Override
@@ -66,14 +66,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(validCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/loginPage")
+//                .loginProcessingUrl("/loginPage")
 //                .failureHandler(failureHandler)
 //                .successHandler(successHandler)
                 .and()
                 .apply(springSocialConfigurer)
                 .and()
                 .rememberMe()
-                .tokenRepository(persistentTokenRepository())
+//                .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(3600)
                 .userDetailsService(userDetailsService)
                 .and()

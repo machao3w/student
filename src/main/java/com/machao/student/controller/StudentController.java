@@ -24,7 +24,7 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @PostMapping("/studentList")
+    @GetMapping("/studentList")
     //@EnableAes
     @ApiOperation(value = "学生列表")
     public String listAll(@RequestParam(value = "offset", defaultValue = "0") Integer offset,

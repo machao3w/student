@@ -21,8 +21,8 @@ import java.lang.reflect.Method;
  * date: 2020/1/13 9:44
  */
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 @Slf4j
 public class RedisLockAspect {
 
