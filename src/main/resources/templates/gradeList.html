@@ -54,12 +54,41 @@
 </div>
 <!-- 引入jquery bootstrap等 -->
 <div th:replace="common/js"></div>
-
+<script type="text/javascript" src="../static/sk.js"></script>
 <script>
 
     $(function () {
         var oTable = new TableInit();
         oTable.Init();
+
+
+
+        console.log("test123");
+        var url = 'http://localhost:8877/server';
+        var sock = new SockJS(url);
+        stompClient = Stomp.over(sock);
+        var headers = {
+            username: 'admin',
+            password: 'admin'
+        };
+        stompClient.connect(headers, function (frame) {
+
+            var adminJSON = JSON.stringify({'message': 'ADMIN'});
+            stompClient.send("/app/singleShout", {}, adminJSON);
+
+            stompClient.subscribe("/user/queue/shouts", function (message) {
+                console.log("admin用户特定的消息1：" + JSON.stringify(message));
+                var content = message.body;
+                // var obj = JSON.parse(content);
+                console.log("admin用户特定的消息1：" + content);
+            }, {})
+
+            // stompClient.subscribe("/topic/shouts", function (message) {
+            //     var content = message.body;
+            //     var obj = JSON.parse(content);
+            //     console.log("订阅的服务端消息：" + obj.message);
+            // }, {});
+        })
 
     });
 

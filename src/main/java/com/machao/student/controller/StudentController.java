@@ -2,6 +2,7 @@ package com.machao.student.controller;
 
 import com.machao.student.VO.ResponseVO;
 import com.machao.student.annotaion.EnableAes;
+import com.machao.student.entity.Book;
 import com.machao.student.entity.Doctor;
 import com.machao.student.enums.ParamError;
 import com.machao.student.param.TestParam;
@@ -10,9 +11,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -51,14 +58,32 @@ public class StudentController {
     @PostMapping("/testTran")
     //@EnableAes
     @ApiOperation(value = "body测试")
-    public Doctor test(@RequestBody TestParam error){
+    public Doctor test( TestParam error){
        // System.out.println(request);
+//        MethodValidationPostProcessor
         System.out.println("test");
 //        studentService.testTran();
         Doctor doctor = new Doctor();
         doctor.setDoctorId("123");
         doctor.setDoctorName("machao");
         return doctor;
+    }
+
+    @GetMapping("/books")
+    public List<Book> getBooks(){
+        Book book = new Book();
+        book.setId(1);
+        book.setAuthor("mc");
+        book.setName("name1");
+        Book book1 = new Book();
+        book1.setAuthor("mc2");
+        book1.setName("name2");
+        book1.setId(2);
+
+        List<Book> list = new ArrayList<>();
+        list.add(book);
+        list.add(book1);
+        return list;
     }
 
 

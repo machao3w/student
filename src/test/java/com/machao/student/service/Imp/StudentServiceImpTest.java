@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.machao.student.dao.EventMapper;
+import com.machao.student.entity.Event;
 import com.machao.student.entity.Student;
 import com.machao.student.param.TestParam;
 import com.machao.student.utils.Hashidse;
@@ -31,12 +33,20 @@ public class StudentServiceImpTest {
 
     @Autowired
     StudentServiceImp studentServiceImp;
+    @Autowired
+    private EventMapper eventMapper;
 
     @Test
     public void selectByPrimaryKey() throws Exception{
         Student result = studentServiceImp.selectByPrimaryKey("20181011033");
         System.out.println(JSON.toJSONString(result));
 
+    }
+
+    @Test
+    public void testEmoji(){
+        Event event = new Event();
+        event.setEventName("");
     }
 
     @Test

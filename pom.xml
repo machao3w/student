@@ -184,6 +184,37 @@
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-configuration-processor</artifactId>-->
 <!--        </dependency>-->
+
+        <dependency>
+            <groupId> e-iceblue </groupId>
+            <artifactId>spire.pdf</artifactId>
+            <version>3.11.6</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.owasp.esapi/esapi -->
+        <dependency>
+            <groupId>org.owasp.esapi</groupId>
+            <artifactId>esapi</artifactId>
+            <version>2.2.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.nls</groupId>
+            <artifactId>nls-sdk-recognizer</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
+        <!--        <dependency>-->
+<!--            <groupId>e-iceblue</groupId>-->
+<!--            <artifactId>spire.pdf.free</artifactId>-->
+<!--            <version>2.2.2</version>-->
+<!--        </dependency>-->
+
     </dependencies>
 
     <dependencyManagement>
@@ -197,6 +228,13 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>com.e-iceblue</id>
+            <url>http://repo.e-iceblue.cn/repository/maven-public/</url>
+        </repository>
+    </repositories>
 
     <distributionManagement>
         <repository>

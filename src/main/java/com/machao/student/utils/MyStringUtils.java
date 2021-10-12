@@ -1,18 +1,72 @@
 package com.machao.student.utils;
 
 import com.machao.student.enums.ParamError;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import com.spire.pdf.PdfDocument;
+import com.spire.pdf.PdfDocumentBase;
+import com.spire.pdf.PdfPageBase;
+import com.spire.pdf.graphics.PdfMargins;
 import org.hibernate.validator.internal.metadata.BeanMetaDataManager;
 import org.hibernate.validator.internal.metadata.aggregated.BeanMetaData;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import sun.font.FontDesignMetrics;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Validator;
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyStringUtils {
+
+
+    public static void main(String[] args) throws IOException {
+
+
+        //BufferedImage imageQr = ImageIO.read(new File("D:\\workspace\\student\\src\\main\\resources\\static\\img\\qr.png"));
+        BufferedImage imageQr = getRemoteImageAndSave("https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQGt8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyLUh0SUF4UlZjdkQxMDAwMGcwN0oAAgQdu4tgAwQAAAAA");
+        BufferedImage imageLoc = ImageIO.read(new File("D:\\workspace\\student\\src\\main\\resources\\static\\img\\dingwei12.png"));
+        BufferedImage imageOri = ImageIO.read(new File("C:\\Users\\MSI-PC\\Desktop\\svjsz-5kix5-001.png"));
+        Graphics2D graphics = imageOri.createGraphics();
+
+        //创建位置图片
+        Font font = new Font("宋体",Font.BOLD,100);
+        String storeName = "百信缘药店荷花池分店啊啊啊啊啊";
+        graphics.drawImage(imageQr,3450,1000,900,900,null);
+
+
+
+        graphics.setFont(font);
+        graphics.setColor(Color.WHITE);
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.drawString(storeName,4800-100*storeName.length(),  750);
+        graphics.drawImage(imageLoc,4800-100*storeName.length()-imageLoc.getWidth()-100,600,150,150,null);
+        ImageIO.write(imageOri, "png", new FileOutputStream("C:\\Users\\MSI-PC\\Desktop\\test123.png"));
+
+    }
+
+
+    public static BufferedImage getRemoteImageAndSave(String url){
+        try {
+            if (StringUtils.isEmpty(url)){
+                return null;
+            }
+            if (url.startsWith("http")){
+                BufferedImage bufferedImage = ImageIO.read(Unirest.get(url).asBinary().getBody());
+                return bufferedImage;
+            }
+        } catch (UnirestException | IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * 字符串每个元素用%包围
