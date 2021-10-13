@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>含特殊药品复方制剂销售登记</title>
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+
+<body>
+
+    <div class="header" id="printPage">
+        <div class="top">
+            <div class="top_t1">
+                <p class="title">含特殊药品复方制剂销售登记</p>
+               <div class="top_t2">
+                    <img class="img2" src="/img/dingwei12.png" alt="">
+                    <span class="address">扬子江路店</span>
+                </div>
+            </div>
+        </div>
+        <div class="middle">
+            <p class="per">尊敬的用户：</p>
+            <div class="middle_m1">
+                <h5>根据国家食品药品监督管理局、公安部、卫生部《关于加强含麻黄碱类复方制剂管理有关事宜的通知》（国食药监办【2012】260号）文件规定，药品零售企业销售含麻黄碱类复方制剂，应当查验购买者的身份证，并对其姓名和身份证号码予以登记。除处方药按处方剂量销售外，一次销售不得超过2个最小包装。
+                </h5>
+                <div class="middle_m2">
+                    <div class="flex-column qrcode-item">
+                        <img class="img3" id="qrimg" src="/img/qr.png" alt="">
+                        <div class="wechat">微信扫码登记</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--startprint-->
+    <div class="layui-btn-group">
+        <button type="button" class="layui-btn layui-btn-sm" id="printHtml">
+            <i class="layui-icon">&#xe66d;</i>
+        </button>
+    </div>
+    <!--endprint-->
+</body>
+<!--<script src="../js/import.js"></script>-->
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<!--<script src="/css/style.css"></script>-->
+<script>
+    BaseRequireUtil
+        .builder()
+        // .addScript("common/js/layuiUtil.js")
+        .startImportAll(document);
+</script>
+<script>
+    var odid = localStorage.getItem("odid");
+
+    // $(function () {
+    //     getQr();
+    //
+    // });
+
+    $("#printHtml").on('click',function () {
+        window.open("/login/png");
+    });
+
+    // function getQr() {
+    //     $.ajax({
+    //         url: "/wechat/qrcode?odId=" + odid,
+    //         type: "get",
+    //         success: function (result) {
+    //             if (result.code == 200){
+    //                 $("#qrimg").attr("src",result.data);
+    //             }
+    //
+    //         }
+    //     })
+    // }
+</script>
+</html>
